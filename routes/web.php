@@ -20,13 +20,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::Resource('/','MemberRegistrationController');
+$router->group(['middleware' => 'auth'], function($router){
 
-Route::Resource('site','MemberRegistrationController');
+    Route::Resource('site','MemberRegistrationController');
 
-Route::Resource('registration-list','Admin\AdminRegisterController');
+    Route::Resource('registration-list','Admin\AdminRegisterController');
 
 
-Route::Resource('profile','UserProfileController');
+    Route::Resource('profile','UserProfileController');
+
+});
 
 Route::group(['middleware' => ['auth', 'admin']], function() {
 
